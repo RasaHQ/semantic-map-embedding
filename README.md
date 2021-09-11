@@ -4,7 +4,7 @@ This repository contains code to generate semantic map embeddings from plain tex
 documents. Each line in the text files corresponds to one snippet that is used as input
 to the self-organizing map algorithm. Lines wrapped in `=` on either end are considered
 headings. Lines wrapped in `==` are subheadings, and so on. You can find an example
-under `./examples/example_1/corpus/blogpost_00.txt`.
+under [examples/example_1/corpus/blogpost_00.txt](./examples/example_1/corpus/blogpost_00.txt)
 
 ## Setup
 
@@ -12,11 +12,10 @@ Create a new python environment. E.g. with Conda:
 ```bash
 conda create --name <env> --file ./requirements.txt
 ```
-Then compile the executable binary for the self-organizing map:
+Then compile the executable binary for the self-organizing map and make it executable:
 ```bash
 make release
 chmod u+x build/smap
-./build/smap
 ```
 Note, that your CPU needs to support [OpenMP](https://en.wikipedia.org/wiki/OpenMP) for
 this to work. If your CPU doesn't support OpenMP, you can try compiling the executable

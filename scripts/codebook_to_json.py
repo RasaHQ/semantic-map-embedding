@@ -49,7 +49,8 @@ class Codebook:
 def run(
     codebook_filename: Text,
     vocabulary_filename: Text,
-    output_filename: Text
+    output_filename: Text,
+    density: Optional[int] = None,
 ) -> None:
     codebook = Codebook(codebook_filename)
     vocab: List[Text] = []
@@ -58,7 +59,10 @@ def run(
             vocab.append(word.strip())
     print("Extracting semantic map...")
     semantic_map = dict()
-    size = max(codebook.width * codebook.height // 50, 5)
+    if density:
+        size = max(int(density * codebook.width * codebook.height), 1)
+    else:
+        size = max(codebook.width * codebook.height // 50, 5)
     for i, word in enumerate(vocab):
         semantic_map[word] = codebook.fingerprint(i, size)
     print(f"Exporting to {output_filename}")
@@ -77,6 +81,19 @@ def run(
             },
             file
         )
+
+
+def float_between_0_and_1_or_None(x) -> Optional[float]:
+    if x is None:
+        return None
+    try:
+        x = float(x)
+    except ValueError:
+        raise argparse.ArgumentTypeError("%r not a floating-point literal" % (x,))
+
+    if x < 0.0 or x > 1.0:
+        raise argparse.ArgumentTypeError("%r not in range [0.0, 1.0]"%(x,))
+    return x
 
 
 if __name__ == "__main__":
@@ -98,6 +115,11 @@ if __name__ == "__main__":
         type=str,
         help="Name of the json file to create",
     )
+    parser.add_argument(
+        "--density",
+        type=float_between_0_and_1_or_None,
+        help="(Optional) Approximate density of the map",
+    )
 
     args = parser.parse_args()
 
@@ -105,5 +127,6 @@ if __name__ == "__main__":
         args.codebook,
         args.vocabulary,
         args.out,
+        args.density,
     )
 
