@@ -1,0 +1,4 @@
+*.bin
+example_1a/*
+*.log
+*.json
