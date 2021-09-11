@@ -6,6 +6,10 @@ to the self-organizing map algorithm. Lines wrapped in `=` on either end are con
 headings. Lines wrapped in `==` are subheadings, and so on. You can find an example
 under [examples/example_1/corpus/blogpost_00.txt](./examples/example_1/corpus/blogpost_00.txt)
 
+To create text files of this format from Wikipedia dumps, you may use the `smap` branch
+of the forked version of the [WikiExtractor](https://github.com/RasaHQ/wikiextractor/tree/smap)
+on the Rasa GitHub page.
+
 ## Setup
 
 Create a new python environment. E.g. with Conda:
